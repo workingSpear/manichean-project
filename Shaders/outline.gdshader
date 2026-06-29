@@ -1,0 +1,129 @@
+shader_type spatial;
+
+render_mode cull_disabled, blend_mix, diffuse_burley, specular_schlick_ggx, world_vertex_coords, depth_test_disabled, skip_vertex_transform, unshaded, depth_draw_always;
+
+uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest;
+
+uniform bool color_passthrough = false;
+uniform bool depth_check = true;
+uniform bool normal_check = true;
+uniform vec3 tint_color : source_color = vec3(1.0);
+uniform vec3 line_color : source_color = vec3(0.4);
+uniform sampler2D texture_noise : source_color, filter_linear, repeat_enable;
+uniform sampler2D texture_lines : source_color, filter_linear, repeat_enable;
+uniform sampler2D texture_grain : source_color, filter_linear, repeat_enable;
+uniform float red_weight : hint_range(0.0, 2.0) = 0.5;
+uniform float green_weight : hint_range(0.0, 2.0) = 0.5;
+uniform float blue_weight : hint_range(0.0, 2.0) = 0.5;
+uniform float noise_offset_multiplier : hint_range(0.0, 2.0) = 0.5;
+uniform float grain_amount : hint_range(0.0, 1.0) = 0.2;
+uniform float normal_edge_detection : hint_range(0.0, 2.0) = 1.0;
+uniform float depth_edge_detection : hint_range(0.0, 10.0) = 1.0;
+uniform float line_size : hint_range(0.0, 2.0) = 1.0;
+uniform float black_threshold : hint_range(0.0, 2.0, 0.001) = 0.001;
+uniform float white_threshold : hint_range(0.0, 2.0, 0.001) = 2.0;
+uniform float lines_texture_scale : hint_range(0.0, 10.0) = 6.0;
+uniform float grain_texture_scale : hint_range(0.0, 10.0) = 10.0;
+
+const ivec2 pixel_offsets[] = {	ivec2(-1, -1),
+								ivec2(0, -1),
+								ivec2(1, -1),
+								ivec2(-1, 0),
+								ivec2(0, 0),
+								ivec2(1, 0),
+								ivec2(-1, 1),
+								ivec2(0, 1),
+								ivec2(1, 1)
+								};
+
+const int sobel_weights_vertical[] = { 1, 0, -1, 2, 0, -2, 1, 0, -1 };
+const int sobel_weights_horizontal[] = { 1, 2, 1, 0, 0, 0, -1, -2, -1 };
+const int blur_weights[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+const int gausian_weights[] = { 1, 2, 1, 2, 4, 2, 1, 2, 1 };
+
+void vertex() {
+	VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
+}
+
+void fragment() {
+	vec3 depth_weight_vertical = vec3(0.0, 0.0, 0.0);
+	vec3 depth_weight_horizontal = vec3(0.0, 0.0, 0.0);
+	vec3 normal_weight_vertical = vec3(0.0, 0.0, 0.0);
+	vec3 normal_weight_horizontal = vec3(0.0, 0.0, 0.0);
+	vec2 pixel_size = vec2(1.0 / VIEWPORT_SIZE.xy) * line_size;
+	vec4 screen_tex = texture(SCREEN_TEXTURE, SCREEN_UV.xy);
+	vec4 noise_tex = texture(texture_noise, SCREEN_UV.xy);
+	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
+	
+	vec3 noise_offset = vec3(0.0, 0.0, 0.0);
+	noise_offset += (noise_tex.xyz * 2.0 - vec3(1.0)) * 0.005 * noise_offset_multiplier;
+	
+	for(int i = 0; i < pixel_offsets.length(); i++){
+		vec2 offset = vec2(float(pixel_offsets[i].x) * pixel_size.x, float(pixel_offsets[i].y) * pixel_size.y);
+		offset += noise_offset.xy;
+		vec2 shifted_uv = SCREEN_UV + offset;
+		
+		float depth = texture(DEPTH_TEXTURE, shifted_uv).r;
+		vec3 ndc = vec3(shifted_uv * 2.0 - 1.0, depth);
+		vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+		view.xyz /= view.w;
+		float linear_depth = -view.z;
+		
+		depth_weight_vertical += vec3(linear_depth) * depth_edge_detection * float(sobel_weights_vertical[i]);
+		depth_weight_horizontal += vec3(linear_depth) * depth_edge_detection * float(sobel_weights_horizontal[i]);
+		
+		vec3 normal = texture(NORMAL_TEXTURE, shifted_uv).rgb * 2.0 - 1.0;
+		vec3 added_normal_vertical = normal * normal_edge_detection * float(sobel_weights_vertical[i]);
+		vec3 added_normal_horizontal = normal * normal_edge_detection * float(sobel_weights_horizontal[i]);
+		
+		normal_weight_vertical += added_normal_vertical;
+		normal_weight_horizontal += added_normal_horizontal;
+	}
+	
+	normal_weight_vertical = smoothstep(0.5, 1.0, normal_weight_vertical);
+	normal_weight_horizontal = smoothstep(0.5, 1.0, normal_weight_horizontal);
+	
+	float normal_length = length(normal_weight_vertical + normal_weight_horizontal) / 1.0;
+	float depth_length = length(depth_weight_vertical + depth_weight_horizontal) / 8.0;
+	// By default result the tint color. Any other effects are applied later on.
+	vec3 final = tint_color;
+	// Normalizing the color should give a near unshaded albedo of the objects behind the shader.
+	vec3 original_color = normalize(screen_tex.rgb);
+	
+	// The sky should remain the same color.
+	if(depth >= 1.0){
+		final = screen_tex.rgb;
+	// Return a completely black color when the screen texture is below a threshold.
+	}else if(length(screen_tex.rgb) < black_threshold){
+		final = vec3(0.0);
+	// Make it completely white when screen texture is above a threshold.
+	}else if(length(screen_tex.rgb) > white_threshold){
+		final = vec3(1.0);
+	// If the difference in normal or depth is large enough then a line has been found.
+	}else if(normal_length + depth_length > 0.5){
+		final = line_color.rgb;
+	// If color pass through is enabled then replace the output color with the screen texture color.
+	}else if(color_passthrough){
+		final = original_color;
+	}
+	// Apply the sketchy lines based on how dark the scene is.
+	vec4 lines_tex = texture(texture_lines, (SCREEN_UV + noise_offset.xy) * lines_texture_scale);
+	
+	if(screen_tex.r < 0.01){
+		final += vec3(lines_tex.r * -red_weight);
+	}
+	if(screen_tex.r < 0.1){
+		final += vec3(lines_tex.g * -green_weight);
+	}
+	if(screen_tex.r < 0.25){
+		final += vec3(lines_tex.b * -blue_weight);
+	}
+	
+	vec4 grain_tex = texture(texture_grain, SCREEN_UV * grain_texture_scale);
+	// Apply the grain texture on top of the final color.
+	final *= clamp(grain_tex.rgb + vec3(1.0 - grain_amount), vec3(0.0), vec3(1.0));
+	
+	ALBEDO = final;
+}

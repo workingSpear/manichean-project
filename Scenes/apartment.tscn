@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://b4feqtd7ouxso"]
+
+[ext_resource type="Shader" uid="uid://c76rjlk5is451" path="res://Shaders/outline.gdshader" id="2_5t8db"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
+size = Vector2(2.98, 2.28)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b2snn"]
+render_priority = 6
+shader = ExtResource("2_5t8db")
+shader_parameter/color_passthrough = false
+shader_parameter/depth_check = true
+shader_parameter/normal_check = true
+shader_parameter/tint_color = Color(0, 0, 0, 1)
+shader_parameter/line_color = Color(0.9098039, 0, 0.12156863, 1)
+shader_parameter/red_weight = 0.5
+shader_parameter/green_weight = 0.0
+shader_parameter/blue_weight = 0.5
+shader_parameter/noise_offset_multiplier = 0.0
+shader_parameter/grain_amount = 0.2
+shader_parameter/normal_edge_detection = 1.0
+shader_parameter/depth_edge_detection = 1.0
+shader_parameter/line_size = 1.0
+shader_parameter/black_threshold = 0.001
+shader_parameter/white_threshold = 2.0
+shader_parameter/lines_texture_scale = 6.0
+shader_parameter/grain_texture_scale = 10.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_qucwl"]
+size = Vector3(3.5361328, 0.38964844, 5.3361816)
+
+[sub_resource type="BoxMesh" id="BoxMesh_33wrh"]
+size = Vector3(0.4, 1.9717041, 0.4)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ps0xe"]
+rings = 8
+ring_segments = 7
+
+[sub_resource type="PrismMesh" id="PrismMesh_ps0xe"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ps0xe"]
+radial_segments = 10
+rings = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_pj80c"]
+
+[node name="Apartment" type="Node3D" unique_id=162730665]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=874933629]
+transform = Transform3D(-0.6190533, 0, -0.785349, -0.72710425, 0.37792596, 0.57314175, 0.29680377, 0.92583585, -0.23395632, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MainCamera" type="Camera3D" parent="." unique_id=1987630207]
+transform = Transform3D(-0.06976433, 0.40574571, -0.91131955, 0, 0.9135454, 0.40673673, 0.9975635, 0.028375717, -0.063732885, -2.542582, 3.2099319, 0.6576196)
+
+[node name="ShaderQuad" type="MeshInstance3D" parent="MainCamera" unique_id=1632907067]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("QuadMesh_qucwl")
+surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
+
+[node name="Temp Obj" type="Node3D" parent="." unique_id=1803498685]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Temp Obj" unique_id=1218310858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3136153, 0)
+mesh = SubResource("BoxMesh_qucwl")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=1300616179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5475464, -0.85465765, -2.4156399)
+mesh = SubResource("BoxMesh_33wrh")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=1832693056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5475464, -0.85465765, 2.407323)
+mesh = SubResource("BoxMesh_33wrh")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=1711144635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.487596, -0.85465765, 2.407323)
+mesh = SubResource("BoxMesh_33wrh")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=2077371729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.487596, -0.85465765, -2.3675604)
+mesh = SubResource("BoxMesh_33wrh")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Temp Obj" unique_id=398529448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6741092, 1.2966454)
+mesh = SubResource("TorusMesh_ps0xe")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Temp Obj" unique_id=1202002402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1496296, -1.7596047)
+mesh = SubResource("PrismMesh_ps0xe")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Temp Obj" unique_id=1933183628]
+transform = Transform3D(-0.009529497, -0.16805278, 0.097515315, 0.19421764, -0.011013186, 0, 0.005520775, 0.09735893, 0.16832276, -1.2376629, 2.6018655, 0)
+mesh = SubResource("CapsuleMesh_ps0xe")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Temp Obj" unique_id=418077213]
+transform = Transform3D(-0.009032752, -0.15929268, -0.111292586, 0.19421764, -0.011013187, 6.767984e-10, -0.006300766, -0.11111407, 0.15954858, -1.2376629, 2.6018655, -0.34834307)
+mesh = SubResource("CapsuleMesh_ps0xe")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Temp Obj" unique_id=415022323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.523933)
+mesh = SubResource("BoxMesh_pj80c")
