@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b4feqtd7ouxso"]
 
 [ext_resource type="Shader" uid="uid://c76rjlk5is451" path="res://Shaders/outline.gdshader" id="2_5t8db"]
+[ext_resource type="Script" uid="uid://bv0e7stlii2y2" path="res://Scenes/dialogue_tester.gd" id="2_b2snn"]
+[ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_5t8db"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
 size = Vector2(2.98, 2.28)
@@ -51,7 +53,7 @@ transform = Transform3D(-0.6190533, 0, -0.785349, -0.72710425, 0.37792596, 0.573
 shadow_enabled = true
 
 [node name="MainCamera" type="Camera3D" parent="." unique_id=1987630207]
-transform = Transform3D(-0.06976433, 0.40574571, -0.91131955, 0, 0.9135454, 0.40673673, 0.9975635, 0.028375717, -0.063732885, -2.542582, 3.2099319, 0.6576196)
+transform = Transform3D(0.03489175, 0.4614676, -0.8864706, 0, 0.88701075, 0.46174875, 0.9993911, -0.016111223, 0.030949358, -2.3621807, 3.897408, -0.00203228)
 
 [node name="ShaderQuad" type="MeshInstance3D" parent="MainCamera" unique_id=1632907067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -99,3 +101,7 @@ mesh = SubResource("CapsuleMesh_ps0xe")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Temp Obj" unique_id=415022323]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.523933)
 mesh = SubResource("BoxMesh_pj80c")
+
+[node name="DialogueTester" type="Node3D" parent="." unique_id=130958931]
+script = ExtResource("2_b2snn")
+dialogue = ExtResource("3_5t8db")

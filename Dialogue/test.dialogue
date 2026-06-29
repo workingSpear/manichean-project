@@ -1,0 +1,12 @@
+~ start
+Kiara: [wave]Haiii~![/wave], this is some dialogue!!
+Kiara: Here are some choices~
+- boom!
+	Kiara: boom! you're dead~!
+- I hate you
+	Kiara: [#tone=sad][speed=0.5]w-[wait=0.3]w[wait=0.3]-why? what did I do wrong,[wait=0.3],
+- I love you
+	Kiara: I[wait=0.7] don't!!
+- can you say that again? => start
+- End the conversation => END
+=> END
