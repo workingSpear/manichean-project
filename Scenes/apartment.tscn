@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://c76rjlk5is451" path="res://Shaders/outline.gdshader" id="2_5t8db"]
 [ext_resource type="Script" uid="uid://bv0e7stlii2y2" path="res://Scenes/dialogue_tester.gd" id="2_b2snn"]
 [ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_5t8db"]
+[ext_resource type="PackedScene" uid="uid://dw6ekwl234e4f" path="res://Models/Test.blend" id="4_33wrh"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
 size = Vector2(2.98, 2.28)
@@ -13,11 +14,11 @@ shader = ExtResource("2_5t8db")
 shader_parameter/color_passthrough = false
 shader_parameter/depth_check = true
 shader_parameter/normal_check = true
-shader_parameter/tint_color = Color(0.019607844, 0.12156863, 0.22352941, 1)
-shader_parameter/line_color = Color(0.77254903, 0.22745098, 0.6156863, 1)
+shader_parameter/tint_color = Color(0.07450981, 0.011764706, 0.0627451, 1)
+shader_parameter/line_color = Color(0.65882355, 0.078431375, 0.11372549, 1)
 shader_parameter/red_weight = 0.5
-shader_parameter/green_weight = 0.0410000019475
-shader_parameter/blue_weight = 0.0190000009025
+shader_parameter/green_weight = 0.5
+shader_parameter/blue_weight = 0.006000000285
 shader_parameter/noise_offset_multiplier = 0.0
 shader_parameter/grain_amount = 0.2
 shader_parameter/normal_edge_detection = 1.0
@@ -48,12 +49,9 @@ rings = 2
 
 [node name="Apartment" type="Node3D" unique_id=162730665]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=874933629]
-transform = Transform3D(-0.6190533, 0, -0.785349, -0.72710425, 0.37792596, 0.57314175, 0.29680377, 0.92583585, -0.23395632, 0, 0, 0)
-shadow_enabled = true
-
 [node name="MainCamera" type="Camera3D" parent="." unique_id=1987630207]
-transform = Transform3D(-0.7253774, 0.24668318, -0.64263135, 0, 0.9335804, 0.3583681, 0.6883514, 0.2599521, -0.6771981, -3.0612335, 3.6862373, -2.2350388)
+transform = Transform3D(0.69779474, 0.01562596, 0.71612734, 0, 0.999762, -0.021814892, -0.7162978, 0.015222317, 0.6976287, 12.939072, 9.29427, 17.543427)
+current = true
 
 [node name="ShaderQuad" type="MeshInstance3D" parent="MainCamera" unique_id=1632907067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -61,6 +59,7 @@ mesh = SubResource("QuadMesh_qucwl")
 surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
 
 [node name="Temp Obj" type="Node3D" parent="." unique_id=1803498685]
+visible = false
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Temp Obj" unique_id=1218310858]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3136153, 0)
@@ -105,3 +104,18 @@ mesh = SubResource("BoxMesh_pj80c")
 [node name="DialogueTester" type="Node3D" parent="." unique_id=130958931]
 script = ExtResource("2_b2snn")
 dialogue = ExtResource("3_5t8db")
+
+[node name="Test" parent="." unique_id=1977219359 instance=ExtResource("4_33wrh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.51542, 1.9073486e-06, 4.7441444)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=406386747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8183289, 17.048807, 11.552246)
+light_energy = 5.339
+omni_range = 100.645
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=626101982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.260689, 14.731031, 0)
+light_energy = 9.864
+omni_range = 100.645
+
+[editable path="Test"]
