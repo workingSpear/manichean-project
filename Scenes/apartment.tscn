@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bv0e7stlii2y2" path="res://Scenes/dialogue_tester.gd" id="2_b2snn"]
 [ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_5t8db"]
 [ext_resource type="PackedScene" uid="uid://dw6ekwl234e4f" path="res://Models/Test.blend" id="4_33wrh"]
+[ext_resource type="Shader" uid="uid://ckuiwot58voo0" path="res://Scenes/pixel.gdshader" id="5_3c4kh"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
 size = Vector2(2.98, 2.28)
@@ -14,8 +15,8 @@ shader = ExtResource("2_5t8db")
 shader_parameter/color_passthrough = false
 shader_parameter/depth_check = true
 shader_parameter/normal_check = true
-shader_parameter/tint_color = Color(0.07450981, 0.011764706, 0.0627451, 1)
-shader_parameter/line_color = Color(0.65882355, 0.078431375, 0.11372549, 1)
+shader_parameter/tint_color = Color(0.09019608, 0, 0.11372549, 1)
+shader_parameter/line_color = Color(0.6117647, 0.09019608, 0.23137255, 1)
 shader_parameter/red_weight = 0.5
 shader_parameter/green_weight = 0.5
 shader_parameter/blue_weight = 0.006000000285
@@ -46,6 +47,13 @@ radial_segments = 10
 rings = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_pj80c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qucwl"]
+shader = ExtResource("5_3c4kh")
+shader_parameter/grain_intensity = 0.2610000123975
+shader_parameter/min_lum = 0.0
+shader_parameter/max_lum = 1.0
+shader_parameter/time_scale = 0.214000010165
 
 [node name="Apartment" type="Node3D" unique_id=162730665]
 
@@ -109,13 +117,40 @@ dialogue = ExtResource("3_5t8db")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.51542, 1.9073486e-06, 4.7441444)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=406386747]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8183289, 17.048807, 11.552246)
-light_energy = 5.339
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.587764, 17.048807, 9.471533)
+light_energy = 6.565
 omni_range = 100.645
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=626101982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.260689, 14.731031, 0)
 light_energy = 9.864
 omni_range = 100.645
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=1695032261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.1704, 22.212036, 0.8076668)
+light_energy = 9.227
+omni_range = 100.645
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=2040015567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.374218, 8.969269, -25.00404)
+light_energy = 9.227
+omni_range = 100.645
+
+[node name="Control" type="Control" parent="." unique_id=863194097]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1250458081]
+material = SubResource("ShaderMaterial_qucwl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [editable path="Test"]
