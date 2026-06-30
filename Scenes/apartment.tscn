@@ -13,11 +13,11 @@ shader = ExtResource("2_5t8db")
 shader_parameter/color_passthrough = false
 shader_parameter/depth_check = true
 shader_parameter/normal_check = true
-shader_parameter/tint_color = Color(0, 0, 0, 1)
-shader_parameter/line_color = Color(0.9098039, 0, 0.12156863, 1)
+shader_parameter/tint_color = Color(0.019607844, 0.12156863, 0.22352941, 1)
+shader_parameter/line_color = Color(0.77254903, 0.22745098, 0.6156863, 1)
 shader_parameter/red_weight = 0.5
-shader_parameter/green_weight = 0.0
-shader_parameter/blue_weight = 0.5
+shader_parameter/green_weight = 0.0410000019475
+shader_parameter/blue_weight = 0.0190000009025
 shader_parameter/noise_offset_multiplier = 0.0
 shader_parameter/grain_amount = 0.2
 shader_parameter/normal_edge_detection = 1.0
@@ -53,7 +53,7 @@ transform = Transform3D(-0.6190533, 0, -0.785349, -0.72710425, 0.37792596, 0.573
 shadow_enabled = true
 
 [node name="MainCamera" type="Camera3D" parent="." unique_id=1987630207]
-transform = Transform3D(0.03489175, 0.4614676, -0.8864706, 0, 0.88701075, 0.46174875, 0.9993911, -0.016111223, 0.030949358, -2.3621807, 3.897408, -0.00203228)
+transform = Transform3D(-0.7253774, 0.24668318, -0.64263135, 0, 0.9335804, 0.3583681, 0.6883514, 0.2599521, -0.6771981, -3.0612335, 3.6862373, -2.2350388)
 
 [node name="ShaderQuad" type="MeshInstance3D" parent="MainCamera" unique_id=1632907067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)

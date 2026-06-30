@@ -215,7 +215,7 @@ unique_name_in_owner = true
 [node name="TalkAudioHandler" type="Node" parent="." unique_id=1374854041 node_paths=PackedStringArray("audioPlayer")]
 script = ExtResource("6_syg23")
 audioPlayer = NodePath("../TextSounds")
-stopAudioOnNewLetter = true
+frequency = 2
 normalAudioSamples = Array[AudioStreamOggVorbis]([ExtResource("5_kbj1d"), ExtResource("7_xyim1"), ExtResource("8_rl6ge")])
 sadAudioSamples = Array[AudioStreamOggVorbis]([ExtResource("9_5g3f3"), ExtResource("10_h8nsx"), ExtResource("11_5fff7")])
 
