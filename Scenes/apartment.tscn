@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_5t8db"]
 [ext_resource type="PackedScene" uid="uid://dw6ekwl234e4f" path="res://Models/Test.blend" id="4_33wrh"]
 [ext_resource type="Shader" uid="uid://ckuiwot58voo0" path="res://Scenes/pixel.gdshader" id="5_3c4kh"]
+[ext_resource type="Shader" uid="uid://cya1x10jc3ugv" path="res://Shaders/pixelize.gdshader" id="5_tjxvj"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
 size = Vector2(2.98, 2.28)
@@ -15,8 +16,8 @@ shader = ExtResource("2_5t8db")
 shader_parameter/color_passthrough = false
 shader_parameter/depth_check = true
 shader_parameter/normal_check = true
-shader_parameter/tint_color = Color(0.09019608, 0, 0.11372549, 1)
-shader_parameter/line_color = Color(0.6117647, 0.09019608, 0.23137255, 1)
+shader_parameter/tint_color = Color(0.10083331, 0, 0.11, 1)
+shader_parameter/line_color = Color(0.4144399, 0.2184, 0.52, 1)
 shader_parameter/red_weight = 0.5
 shader_parameter/green_weight = 0.5
 shader_parameter/blue_weight = 0.006000000285
@@ -50,10 +51,15 @@ rings = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qucwl"]
 shader = ExtResource("5_3c4kh")
-shader_parameter/grain_intensity = 0.2610000123975
+shader_parameter/grain_intensity = 0.3910000185725
 shader_parameter/min_lum = 0.0
 shader_parameter/max_lum = 1.0
 shader_parameter/time_scale = 0.214000010165
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps0xe"]
+shader = ExtResource("5_tjxvj")
+shader_parameter/pixel_size = 3
+shader_parameter/screen_size = Vector2(2560, 1600)
 
 [node name="Apartment" type="Node3D" unique_id=162730665]
 
@@ -136,7 +142,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.374218, 8.969269, -25.004
 light_energy = 9.227
 omni_range = 100.645
 
-[node name="Control" type="Control" parent="." unique_id=863194097]
+[node name="Post-Proccessing" type="Control" parent="." unique_id=863194097]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,8 +150,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1250458081]
+[node name="Grain" type="ColorRect" parent="Post-Proccessing" unique_id=1250458081]
 material = SubResource("ShaderMaterial_qucwl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pixelization" type="ColorRect" parent="Post-Proccessing" unique_id=753306620]
+material = SubResource("ShaderMaterial_ps0xe")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
