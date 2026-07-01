@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cn0njtpuj48p"]
+
+[ext_resource type="Shader" uid="uid://ckuiwot58voo0" path="res://Scenes/pixel.gdshader" id="1_lrpsc"]
+[ext_resource type="Shader" uid="uid://cya1x10jc3ugv" path="res://Shaders/pixelize.gdshader" id="2_w0brn"]
+[ext_resource type="Script" uid="uid://l1xghfo7tb0c" path="res://Scripts/VFX/pixelization_screen_check.gd" id="3_w0brn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qucwl"]
+shader = ExtResource("1_lrpsc")
+shader_parameter/grain_intensity = 0.3910000185725
+shader_parameter/min_lum = 0.0
+shader_parameter/max_lum = 1.0
+shader_parameter/time_scale = 0.214000010165
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps0xe"]
+shader = ExtResource("2_w0brn")
+shader_parameter/pixel_size = 4
+shader_parameter/screen_size = Vector2(2560, 1600)
+
+[node name="Post-Proccessing" type="Control" unique_id=1623695941]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Grain" type="ColorRect" parent="." unique_id=498208373]
+material = SubResource("ShaderMaterial_qucwl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Pixelization" type="ColorRect" parent="." unique_id=453738583]
+material = SubResource("ShaderMaterial_ps0xe")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("3_w0brn")

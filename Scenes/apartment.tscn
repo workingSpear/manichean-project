@@ -4,8 +4,43 @@
 [ext_resource type="Script" uid="uid://bv0e7stlii2y2" path="res://Scenes/dialogue_tester.gd" id="2_b2snn"]
 [ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_5t8db"]
 [ext_resource type="PackedScene" uid="uid://dw6ekwl234e4f" path="res://Models/Test.blend" id="4_33wrh"]
-[ext_resource type="Shader" uid="uid://ckuiwot58voo0" path="res://Scenes/pixel.gdshader" id="5_3c4kh"]
-[ext_resource type="Shader" uid="uid://cya1x10jc3ugv" path="res://Shaders/pixelize.gdshader" id="5_tjxvj"]
+[ext_resource type="PackedScene" uid="uid://cn0njtpuj48p" path="res://Scenes/post_proccessing.tscn" id="4_tjxvj"]
+[ext_resource type="Script" uid="uid://7jgn33cd60ed" path="res://Scripts/Player/player.gd" id="7_3l5v7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3l5v7"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_k5iqw"]
+sky_material = SubResource("ProceduralSkyMaterial_3l5v7")
+
+[sub_resource type="Environment" id="Environment_ljt5k"]
+background_mode = 2
+sky = SubResource("Sky_k5iqw")
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_qucwl"]
+size = Vector3(3.5361328, 0.38964844, 5.3361816)
+
+[sub_resource type="BoxMesh" id="BoxMesh_33wrh"]
+size = Vector3(0.4, 1.9717041, 0.4)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ps0xe"]
+rings = 8
+ring_segments = 7
+
+[sub_resource type="PrismMesh" id="PrismMesh_ps0xe"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ps0xe"]
+radial_segments = 10
+rings = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_pj80c"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pj80c"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k5iqw"]
+points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
 
 [sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
 size = Vector2(2.98, 2.28)
@@ -31,46 +66,15 @@ shader_parameter/white_threshold = 2.0
 shader_parameter/lines_texture_scale = 6.0
 shader_parameter/grain_texture_scale = 10.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_qucwl"]
-size = Vector3(3.5361328, 0.38964844, 5.3361816)
-
-[sub_resource type="BoxMesh" id="BoxMesh_33wrh"]
-size = Vector3(0.4, 1.9717041, 0.4)
-
-[sub_resource type="TorusMesh" id="TorusMesh_ps0xe"]
-rings = 8
-ring_segments = 7
-
-[sub_resource type="PrismMesh" id="PrismMesh_ps0xe"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ps0xe"]
-radial_segments = 10
-rings = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_pj80c"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qucwl"]
-shader = ExtResource("5_3c4kh")
-shader_parameter/grain_intensity = 0.3910000185725
-shader_parameter/min_lum = 0.0
-shader_parameter/max_lum = 1.0
-shader_parameter/time_scale = 0.214000010165
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps0xe"]
-shader = ExtResource("5_tjxvj")
-shader_parameter/pixel_size = 3
-shader_parameter/screen_size = Vector2(2560, 1600)
-
 [node name="Apartment" type="Node3D" unique_id=162730665]
 
-[node name="MainCamera" type="Camera3D" parent="." unique_id=1987630207]
-transform = Transform3D(0.69779474, 0.01562596, 0.71612734, 0, 0.999762, -0.021814892, -0.7162978, 0.015222317, 0.6976287, 12.939072, 9.29427, 17.543427)
-current = true
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1335818461]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.54
+shadow_enabled = true
 
-[node name="ShaderQuad" type="MeshInstance3D" parent="MainCamera" unique_id=1632907067]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-mesh = SubResource("QuadMesh_qucwl")
-surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1577207104]
+environment = SubResource("Environment_ljt5k")
 
 [node name="Temp Obj" type="Node3D" parent="." unique_id=1803498685]
 visible = false
@@ -122,50 +126,35 @@ dialogue = ExtResource("3_5t8db")
 [node name="Test" parent="." unique_id=1977219359 instance=ExtResource("4_33wrh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.51542, 1.9073486e-06, 4.7441444)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=406386747]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.587764, 17.048807, 9.471533)
-light_energy = 6.565
-omni_range = 100.645
+[node name="Post-Proccessing" parent="." unique_id=1623695941 instance=ExtResource("4_tjxvj")]
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=626101982]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.260689, 14.731031, 0)
-light_energy = 9.864
-omni_range = 100.645
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1979988904 node_paths=PackedStringArray("Head", "Camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1882277, 4.592388, 10.382263)
+script = ExtResource("7_3l5v7")
+Head = NodePath("Head")
+Camera = NodePath("Head/MainCamera")
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=1695032261]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.1704, 22.212036, 0.8076668)
-light_energy = 9.227
-omni_range = 100.645
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=413750021]
+mesh = SubResource("CapsuleMesh_pj80c")
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=2040015567]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.374218, 8.969269, -25.00404)
-light_energy = 9.227
-omni_range = 100.645
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=780324898]
+shape = SubResource("ConvexPolygonShape3D_k5iqw")
 
-[node name="Post-Proccessing" type="Control" parent="." unique_id=863194097]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Light" type="OmniLight3D" parent="Player" unique_id=2036531261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6901507, 0)
+light_energy = 0.83
+omni_range = 10.79
 
-[node name="Grain" type="ColorRect" parent="Post-Proccessing" unique_id=1250458081]
-material = SubResource("ShaderMaterial_qucwl")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Head" type="Node3D" parent="Player" unique_id=1646427922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6651554, 0)
 
-[node name="Pixelization" type="ColorRect" parent="Post-Proccessing" unique_id=753306620]
-material = SubResource("ShaderMaterial_ps0xe")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainCamera" type="Camera3D" parent="Player/Head" unique_id=1987630207]
+current = true
+fov = 80.0
+
+[node name="ShaderQuad" type="MeshInstance3D" parent="Player/Head/MainCamera" unique_id=1632907067]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("QuadMesh_qucwl")
+surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
 
 [editable path="Test"]
