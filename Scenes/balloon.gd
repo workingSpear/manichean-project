@@ -48,6 +48,8 @@ var dialogue_line: DialogueLine:
 		else:
 			# The dialogue has finished so close the balloon
 			if owner == null:
+				GameManager.currently_talking = false
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				queue_free()
 			else:
 				hide()

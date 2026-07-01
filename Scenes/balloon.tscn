@@ -2,21 +2,14 @@
 
 [ext_resource type="Script" uid="uid://diig5ph27o7kv" path="res://Scenes/balloon.gd" id="1_36de5"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
-[ext_resource type="Script" uid="uid://dbs4435dsf3ry" path="res://addons/dialogue_manager/dialogue_resource.gd" id="2_nlsx6"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_72ixx"]
-[ext_resource type="AudioStream" uid="uid://cgvi1jdca6e4h" path="res://Audio/TalkSounds/Normal1.ogg" id="5_kbj1d"]
+[ext_resource type="AudioStream" uid="uid://038e703o24lh" path="res://Audio/TalkSounds/vm1.ogg" id="5_43nfd"]
+[ext_resource type="AudioStream" uid="uid://dnytx5whcmhxg" path="res://Audio/TalkSounds/vm2.ogg" id="6_5g3f3"]
 [ext_resource type="Script" uid="uid://cinvou8ww4aso" path="res://Scripts/Dialogue/talk_audio_handler.gd" id="6_syg23"]
-[ext_resource type="AudioStream" uid="uid://cnttpu8tfdi56" path="res://Audio/TalkSounds/Normal2.ogg" id="7_xyim1"]
-[ext_resource type="AudioStream" uid="uid://cng8pbkk50b71" path="res://Audio/TalkSounds/Normal3.ogg" id="8_rl6ge"]
+[ext_resource type="AudioStream" uid="uid://q005ilnn3nt7" path="res://Audio/TalkSounds/vm3.ogg" id="7_h8nsx"]
 [ext_resource type="AudioStream" uid="uid://c3p2r4laujv7e" path="res://Audio/TalkSounds/Sad1.ogg" id="9_5g3f3"]
 [ext_resource type="AudioStream" uid="uid://crscbla6f15gd" path="res://Audio/TalkSounds/Sad2.ogg" id="10_h8nsx"]
 [ext_resource type="AudioStream" uid="uid://bgkc2go7de3c2" path="res://Audio/TalkSounds/Sad3.ogg" id="11_5fff7"]
-
-[sub_resource type="Resource" id="Resource_ps0xe"]
-script = ExtResource("2_nlsx6")
-using_states = PackedStringArray()
-character_names = PackedStringArray()
-metadata/_custom_type_script = "uid://dbs4435dsf3ry"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -116,7 +109,6 @@ _data = {
 [node name="ExampleBalloon" type="CanvasLayer" unique_id=605550416]
 layer = 100
 script = ExtResource("1_36de5")
-dialogue_resource = SubResource("Resource_ps0xe")
 
 [node name="Balloon" type="Control" parent="." unique_id=1817457515]
 unique_name_in_owner = true
@@ -168,7 +160,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue..."
-seconds_per_step = 0.05
+seconds_per_step = 0.07
 
 [node name="Control" type="Control" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=296992399]
 custom_minimum_size = Vector2(20, 10)
@@ -216,7 +208,7 @@ unique_name_in_owner = true
 script = ExtResource("6_syg23")
 audioPlayer = NodePath("../TextSounds")
 frequency = 2
-normalAudioSamples = Array[AudioStreamOggVorbis]([ExtResource("5_kbj1d"), ExtResource("7_xyim1"), ExtResource("8_rl6ge")])
+normalAudioSamples = Array[AudioStreamOggVorbis]([ExtResource("5_43nfd"), ExtResource("6_5g3f3"), ExtResource("7_h8nsx")])
 sadAudioSamples = Array[AudioStreamOggVorbis]([ExtResource("9_5g3f3"), ExtResource("10_h8nsx"), ExtResource("11_5fff7")])
 
 [connection signal="tag_found" from="." to="TalkAudioHandler" method="_on_example_balloon_tag_found"]

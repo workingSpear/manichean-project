@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://c76rjlk5is451" path="res://Shaders/outline.gdshader" id="2_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://dktbwdhfdfnl2" path="res://dots.png" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://c4h4kupvvv1fi" path="res://lines.png" id="4_52ee3"]
+[ext_resource type="Script" uid="uid://8cp7uemefnq0" path="res://Scripts/Player/interaction.gd" id="5_5ixxa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pj80c"]
 
@@ -60,12 +61,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6651554, 0)
 current = true
 fov = 80.0
 
+[node name="RayCast3D" type="RayCast3D" parent="Head/MainCamera" unique_id=1293503934]
+target_position = Vector3(0, 0, -2.445)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="ShaderQuad" type="MeshInstance3D" parent="Head/MainCamera" unique_id=652461816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("QuadMesh_qucwl")
 surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
 
-[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=1293503934]
-target_position = Vector3(0, 0, -2.445)
-collide_with_areas = true
-collide_with_bodies = false
+[node name="InteractionModule" type="Node3D" parent="." unique_id=8195454 node_paths=PackedStringArray("raycast")]
+script = ExtResource("5_5ixxa")
+raycast = NodePath("../Head/MainCamera/RayCast3D")
