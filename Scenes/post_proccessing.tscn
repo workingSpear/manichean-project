@@ -26,6 +26,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Grain" type="ColorRect" parent="." unique_id=498208373]
+visible = false
 material = SubResource("ShaderMaterial_qucwl")
 layout_mode = 1
 anchors_preset = 15
@@ -36,6 +37,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Pixelization" type="ColorRect" parent="." unique_id=453738583]
+visible = false
 material = SubResource("ShaderMaterial_ps0xe")
 layout_mode = 1
 anchors_preset = 15

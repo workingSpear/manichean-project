@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://skx6a31wsgcj"]
+
+[ext_resource type="Script" uid="uid://7jgn33cd60ed" path="res://Scripts/Player/player.gd" id="1_dewec"]
+[ext_resource type="Shader" uid="uid://c76rjlk5is451" path="res://Shaders/outline.gdshader" id="2_5ixxa"]
+[ext_resource type="Texture2D" uid="uid://dktbwdhfdfnl2" path="res://dots.png" id="3_nn08x"]
+[ext_resource type="Texture2D" uid="uid://c4h4kupvvv1fi" path="res://lines.png" id="4_52ee3"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pj80c"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k5iqw"]
+points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qucwl"]
+size = Vector2(2.98, 2.28)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_flcdt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uhru5"]
+noise = SubResource("FastNoiseLite_flcdt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b2snn"]
+render_priority = 6
+shader = ExtResource("2_5ixxa")
+shader_parameter/color_passthrough = false
+shader_parameter/depth_check = true
+shader_parameter/normal_check = true
+shader_parameter/tint_color = Color(0.101960786, 0, 0.10980392, 1)
+shader_parameter/line_color = Color(0.4144399, 0.2184, 0.52, 1)
+shader_parameter/texture_noise = SubResource("NoiseTexture2D_uhru5")
+shader_parameter/texture_lines = ExtResource("4_52ee3")
+shader_parameter/texture_grain = ExtResource("3_nn08x")
+shader_parameter/red_weight = 0.5
+shader_parameter/green_weight = 0.5
+shader_parameter/blue_weight = 0.5
+shader_parameter/noise_offset_multiplier = 0.1600000076
+shader_parameter/grain_amount = 0.2
+shader_parameter/normal_edge_detection = 1.0
+shader_parameter/depth_edge_detection = 1.0
+shader_parameter/line_size = 1.0
+shader_parameter/black_threshold = 0.001
+shader_parameter/white_threshold = 2.0
+shader_parameter/lines_texture_scale = 6.0
+shader_parameter/grain_texture_scale = 10.0
+
+[node name="Player" type="CharacterBody3D" unique_id=226587997 node_paths=PackedStringArray("Head", "Camera")]
+script = ExtResource("1_dewec")
+Head = NodePath("Head")
+Camera = NodePath("Head/MainCamera")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=212862106]
+mesh = SubResource("CapsuleMesh_pj80c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=297830920]
+shape = SubResource("ConvexPolygonShape3D_k5iqw")
+
+[node name="Head" type="Node3D" parent="." unique_id=2111278067]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6651554, 0)
+
+[node name="MainCamera" type="Camera3D" parent="Head" unique_id=1285882188]
+current = true
+fov = 80.0
+
+[node name="ShaderQuad" type="MeshInstance3D" parent="Head/MainCamera" unique_id=652461816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("QuadMesh_qucwl")
+surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
+
+[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=1293503934]
+target_position = Vector3(0, 0, -2.445)
+collide_with_areas = true
+collide_with_bodies = false
