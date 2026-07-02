@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://b4feqtd7ouxso"]
 
-[ext_resource type="PackedScene" uid="uid://cudpf5uwmirgw" path="res://Scenes/stupid_donut.tscn" id="1_tjxvj"]
 [ext_resource type="Script" uid="uid://bv0e7stlii2y2" path="res://Scenes/dialogue_tester.gd" id="2_b2snn"]
 [ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_5t8db"]
-[ext_resource type="PackedScene" uid="uid://dw6ekwl234e4f" path="res://Models/Test.blend" id="4_33wrh"]
 [ext_resource type="PackedScene" uid="uid://cn0njtpuj48p" path="res://Scenes/post_proccessing.tscn" id="4_tjxvj"]
+[ext_resource type="PackedScene" uid="uid://c7oa3mey08urg" path="res://Models/ApartmentBlockout.blend" id="5_3c4kh"]
 [ext_resource type="PackedScene" uid="uid://skx6a31wsgcj" path="res://Scenes/Player.tscn" id="6_tjxvj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3l5v7"]
@@ -19,20 +18,6 @@ background_mode = 2
 sky = SubResource("Sky_k5iqw")
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_qucwl"]
-size = Vector3(3.5361328, 0.38964844, 5.3361816)
-
-[sub_resource type="BoxMesh" id="BoxMesh_33wrh"]
-size = Vector3(0.4, 1.9717041, 0.4)
-
-[sub_resource type="PrismMesh" id="PrismMesh_ps0xe"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ps0xe"]
-radial_segments = 10
-rings = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_pj80c"]
-
 [node name="Apartment" type="Node3D" unique_id=162730665]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1335818461]
@@ -44,58 +29,13 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1577207104]
 environment = SubResource("Environment_ljt5k")
 
-[node name="Temp Obj" type="Node3D" parent="." unique_id=1803498685]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.57946205, 4.090946)
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Temp Obj" unique_id=1218310858]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3136153, 0)
-mesh = SubResource("BoxMesh_qucwl")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=1300616179]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5475464, -0.85465765, -2.4156399)
-mesh = SubResource("BoxMesh_33wrh")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=1832693056]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5475464, -0.85465765, 2.407323)
-mesh = SubResource("BoxMesh_33wrh")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=1711144635]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.487596, -0.85465765, 2.407323)
-mesh = SubResource("BoxMesh_33wrh")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Temp Obj/MeshInstance3D2" unique_id=2077371729]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.487596, -0.85465765, -2.3675604)
-mesh = SubResource("BoxMesh_33wrh")
-
-[node name="stupid donut" parent="Temp Obj" unique_id=800383986 instance=ExtResource("1_tjxvj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6741092, 1.2966454)
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Temp Obj" unique_id=1202002402]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1496296, -1.7596047)
-mesh = SubResource("PrismMesh_ps0xe")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Temp Obj" unique_id=1933183628]
-transform = Transform3D(-0.009529497, -0.16805278, 0.097515315, 0.19421764, -0.011013186, 0, 0.005520775, 0.09735893, 0.16832276, -1.2376629, 2.6018655, 0)
-mesh = SubResource("CapsuleMesh_ps0xe")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Temp Obj" unique_id=418077213]
-transform = Transform3D(-0.009032752, -0.15929268, -0.111292586, 0.19421764, -0.011013187, 6.767984e-10, -0.006300766, -0.11111407, 0.15954858, -1.2376629, 2.6018655, -0.34834307)
-mesh = SubResource("CapsuleMesh_ps0xe")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Temp Obj" unique_id=415022323]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.523933)
-mesh = SubResource("BoxMesh_pj80c")
-
 [node name="DialogueTester" type="Node3D" parent="." unique_id=130958931]
 script = ExtResource("2_b2snn")
 dialogue = ExtResource("3_5t8db")
 
-[node name="Test" parent="." unique_id=1977219359 instance=ExtResource("4_33wrh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.51542, 1.9073486e-06, 4.7441444)
-
 [node name="Post-Proccessing" parent="." unique_id=1623695941 instance=ExtResource("4_tjxvj")]
 
 [node name="Player" parent="." unique_id=226587997 instance=ExtResource("6_tjxvj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4980383, 4.592388, 10.382263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.255, 0.47, -7.99)
 
-[editable path="Test"]
+[node name="ApartmentBlockout" parent="." unique_id=869157328 instance=ExtResource("5_3c4kh")]
