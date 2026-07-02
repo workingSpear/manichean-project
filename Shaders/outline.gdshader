@@ -17,7 +17,7 @@ uniform sampler2D texture_grain : source_color, filter_linear, repeat_enable;
 uniform float red_weight : hint_range(0.0, 2.0) = 0.5;
 uniform float green_weight : hint_range(0.0, 2.0) = 0.5;
 uniform float blue_weight : hint_range(0.0, 2.0) = 0.5;
-uniform float noise_offset_multiplier : hint_range(0.0, 2.0) = 0.5;
+uniform float noise_offset_multiplier : hint_range(0.0, 20.0) = 0.5;
 uniform float grain_amount : hint_range(0.0, 1.0) = 0.2;
 uniform float normal_edge_detection : hint_range(0.0, 2.0) = 1.0;
 uniform float depth_edge_detection : hint_range(0.0, 10.0) = 1.0;

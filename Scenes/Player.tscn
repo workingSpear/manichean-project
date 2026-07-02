@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dktbwdhfdfnl2" path="res://dots.png" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://c4h4kupvvv1fi" path="res://lines.png" id="4_52ee3"]
 [ext_resource type="Script" uid="uid://8cp7uemefnq0" path="res://Scripts/Player/interaction.gd" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://btpc88b5uohvj" path="res://Scripts/Player/transition_module.gd" id="6_nn08x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pj80c"]
 height = 3.22229
@@ -17,7 +18,7 @@ size = Vector2(2.98, 2.28)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_flcdt"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uhru5"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_52ee3"]
 noise = SubResource("FastNoiseLite_flcdt")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b2snn"]
@@ -28,7 +29,7 @@ shader_parameter/depth_check = true
 shader_parameter/normal_check = true
 shader_parameter/tint_color = Color(0.101960786, 0, 0.10980392, 1)
 shader_parameter/line_color = Color(0.4144399, 0.2184, 0.52, 1)
-shader_parameter/texture_noise = SubResource("NoiseTexture2D_uhru5")
+shader_parameter/texture_noise = SubResource("NoiseTexture2D_52ee3")
 shader_parameter/texture_lines = ExtResource("4_52ee3")
 shader_parameter/texture_grain = ExtResource("3_nn08x")
 shader_parameter/red_weight = 0.5
@@ -44,10 +45,11 @@ shader_parameter/white_threshold = 2.0
 shader_parameter/lines_texture_scale = 6.0
 shader_parameter/grain_texture_scale = 10.0
 
-[node name="Player" type="CharacterBody3D" unique_id=226587997 node_paths=PackedStringArray("Head", "Camera")]
+[node name="Player" type="CharacterBody3D" unique_id=226587997 node_paths=PackedStringArray("Head", "Camera", "trans")]
 script = ExtResource("1_dewec")
 Head = NodePath("Head")
 Camera = NodePath("Head/MainCamera")
+trans = NodePath("TransitionModule")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=212862106]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.611145, 0)
@@ -78,3 +80,8 @@ surface_material_override/0 = SubResource("ShaderMaterial_b2snn")
 [node name="InteractionModule" type="Node3D" parent="." unique_id=8195454 node_paths=PackedStringArray("raycast")]
 script = ExtResource("5_5ixxa")
 raycast = NodePath("../Head/MainCamera/RayCast3D")
+
+[node name="TransitionModule" type="Node3D" parent="." unique_id=1278752215 node_paths=PackedStringArray("shaderMesh")]
+script = ExtResource("6_nn08x")
+shaderMesh = NodePath("../Head/MainCamera/ShaderQuad")
+transition_speed = 0.05
