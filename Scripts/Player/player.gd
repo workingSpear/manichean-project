@@ -33,10 +33,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	#temp
-	if(Input.is_action_just_pressed("interact")):
-		trans._transition(true)
-	if(Input.is_action_just_pressed("ui_accept")):
-		trans._transition(false)
+	#if(Input.is_action_just_pressed("interact")):
+		#trans._transition(true)
+	#if(Input.is_action_just_pressed("ui_accept")):
+		#trans._transition(false)
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

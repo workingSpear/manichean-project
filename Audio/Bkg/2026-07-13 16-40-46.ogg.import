@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://mlo1icfhsi6c"
+path="res://.godot/imported/2026-07-13 16-40-46.ogg-2bdda80d8f9645087dbd570ea91bfccc.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Bkg/2026-07-13 16-40-46.ogg"
+dest_files=["res://.godot/imported/2026-07-13 16-40-46.ogg-2bdda80d8f9645087dbd570ea91bfccc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

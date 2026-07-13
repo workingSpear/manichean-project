@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cudpf5uwmirgw"]
 
 [ext_resource type="Shader" uid="uid://cjcp1qtxoki58" path="res://Shaders/wireframeOutline.gdshader" id="1_elr33"]
-[ext_resource type="Script" uid="uid://esylcnp2qlfq" path="res://Scripts/Objects/interactable.gd" id="2_6rmhi"]
-[ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="3_s3k0k"]
+[ext_resource type="PackedScene" uid="uid://b6ihrlkrxtm5v" path="res://Scenes/Modules/interactable_module.tscn" id="2_6rmhi"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_ps0xe"]
 rings = 8
@@ -17,20 +16,8 @@ shader_parameter/width = 1.0
 shader_parameter/modelOpacity = 1.0
 shader_parameter/filtered = false
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ps0xe"]
-size = Vector3(2.035, 0.645, 2.055)
-
 [node name="stupid donut" type="MeshInstance3D" unique_id=800383986]
 mesh = SubResource("TorusMesh_ps0xe")
 surface_material_override/0 = SubResource("ShaderMaterial_70oq0")
 
-[node name="InteractableModule" type="Node3D" parent="." unique_id=1463319687]
-script = ExtResource("2_6rmhi")
-dialogue = ExtResource("3_s3k0k")
-
-[node name="Area" type="Area3D" parent="InteractableModule" unique_id=692146671]
-collision_layer = 2
-collision_mask = 2
-
-[node name="Col" type="CollisionShape3D" parent="InteractableModule/Area" unique_id=1831111809]
-shape = SubResource("BoxShape3D_ps0xe")
+[node name="InteractableModule" parent="." unique_id=813481615 instance=ExtResource("2_6rmhi")]

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b6ihrlkrxtm5v"]
+
+[ext_resource type="Script" uid="uid://esylcnp2qlfq" path="res://Scripts/Objects/interactable.gd" id="1_sonh5"]
+[ext_resource type="Resource" uid="uid://xkjj2aflkxue" path="res://Dialogue/test.dialogue" id="2_bp387"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ps0xe"]
+size = Vector3(2.035, 0.645, 2.055)
+
+[node name="InteractableModule" type="Node3D" unique_id=813481615]
+script = ExtResource("1_sonh5")
+dialogue = ExtResource("2_bp387")
+
+[node name="Area" type="Area3D" parent="." unique_id=489094657]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Col" type="CollisionShape3D" parent="Area" unique_id=336883677]
+shape = SubResource("BoxShape3D_ps0xe")

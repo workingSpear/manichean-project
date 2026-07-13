@@ -9,5 +9,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("ui_cancel")):
-		DialogueManager.show_dialogue_balloon(dialogue,"start")
+		#DialogueManager.show_dialogue_balloon(dialogue,"start")
+		DialogueManager.dialogue_ended.emit()
 		pass

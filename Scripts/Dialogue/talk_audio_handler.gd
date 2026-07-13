@@ -24,10 +24,8 @@ func _on_dialogue_label_spoke(letter: String, letter_index: int, speed: float) -
 		else:
 			audioPlayer.stream = normalAudioSamples[hash % (normalAudioSamples.size()-1)]
 		# randomize pitch
-		if(letter == '!'):
+		if(letter == '!' or letter == '?'):
 			audioPlayer.pitch_scale = maxPitch + 0.1
-		elif(letter == '?'):
-			audioPlayer.pitch_scale = minPitch - 0.1
 		else:
 			audioPlayer.pitch_scale = ((hash % int(maxPitch*100 - minPitch*100)) + minPitch*100)/100
 		audioPlayer.play()
